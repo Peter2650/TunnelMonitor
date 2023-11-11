@@ -1,0 +1,89 @@
+﻿<Window x:Class="TunnelMonitor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TunnelMonitor"
+        mc:Ignorable="d"
+        Title="Tunnel Monitor" Height="450" Width="1100">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Venstre side for Navn, Telefon, Firma -->
+        <StackPanel Grid.Column="0" Margin="10">
+            <Label Content="Name" Target="{Binding ElementName=txtName}"/>
+            <TextBox x:Name="txtName" ToolTip="Name" Margin="0,0,0,5" TextChanged="txtName_TextChanged"/>
+            <Label Content="Phone" Target="{Binding ElementName=txtPhone}"/>
+            <TextBox x:Name="txtPhone" ToolTip="Phone" Margin="0,0,0,5"/>
+            <Label Content="Company" Target="{Binding ElementName=txtCompany}"/>
+            <TextBox x:Name="txtCompany" ToolTip="Company" Margin="0,0,0,5"/>
+            <Label Content="Number of persons" Target="{Binding ElementName=txtNumber}"/>
+            <TextBox x:Name="txtNumber" ToolTip="Number of persons" Margin="0,0,0,5" Width="50" HorizontalContentAlignment="Left">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                        <Setter Property="TextAlignment" Value="Left"/>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+        </StackPanel>
+
+        <!-- Højre side for Datoer -->
+        <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left" Margin="50,30,0,0">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Descent Time" Target="{Binding ElementName=txtEntryTime}"/>
+                <TextBox x:Name="txtEntryTime" Width="120" Height="23" ToolTip="Descent Time (dd-MM-yyyy HH:mm)" Margin="20,0,5,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Ascent Time"  Margin="0,20,0,0" Target="{Binding ElementName=txtExpectedReturnTime}"/>
+                <TextBox x:Name="txtExpectedReturnTime" Width="120" Height="23" ToolTip="Sscent Time (dd-MM-yyyy HH:mm)" Margin="25,20,0,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Tunnel 1" Target="{Binding ElementName=chkTunnel1}"/>
+                <CheckBox x:Name="chkTunnel1" Margin="0,10,10,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Tunnel 2" Target="{Binding ElementName=chkTunnel2}"/>
+                <CheckBox x:Name="chkTunnel2" Margin="0,10,10,0"/>
+            </StackPanel>
+            <Button x:Name="btnAddPerson" Content="Set Reminder" HorizontalAlignment="Right" Margin="40,30,0,0"  Click="btnAddPerson_Click"/>
+        </StackPanel>
+
+        <!-- DataGrid til at vise personer i tunnelen -->
+        <DataGrid x:Name="dgPersonsInTunnel" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,10,0,0" >
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsOverdue}" Value="True">
+                            <Setter Property="Background" Value="Yellow"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="200"/>
+                <DataGridTextColumn Header="Phone" Binding="{Binding Phone}" Width="100"/>
+                <DataGridTextColumn Header="Company" Binding="{Binding Company}" Width="200"/>
+                <DataGridTextColumn Header="# Pers" Binding="{Binding NumberOfPersons}" Width="45"/>
+                <DataGridTextColumn Header="Tun 1" Binding="{Binding tunnel1}" Width="40"/>
+                <DataGridTextColumn Header="Tun 2" Binding="{Binding tunnel2}" Width="40"/>
+                <DataGridTextColumn Header="Descent time" Binding="{Binding EntryTime}" Width="140"/>
+                <DataGridTextColumn Header="Ascent Time" Binding="{Binding ExpectedReturnTime}" Width="140"/>
+                <DataGridTemplateColumn Header="Return">
+                    <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                       <Button Content="Return" Click="RemovePerson_Click" Margin="50,0,0,0"/>
+                    </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
