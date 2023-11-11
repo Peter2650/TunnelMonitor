@@ -44,13 +44,14 @@ Source: "C:\Users\peter\OneDrive\Dokumenter\projects\TunnelMonitor\bin\Release\n
 Source: "C:\Users\peter\OneDrive\Dokumenter\projects\TunnelMonitor\bin\Release\net7.0-windows\publish\TunnelMonitor.deps.json"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\peter\OneDrive\Dokumenter\projects\TunnelMonitor\bin\Release\net7.0-windows\publish\TunnelMonitor.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\peter\OneDrive\Dokumenter\projects\TunnelMonitor\bin\Release\net7.0-windows\publish\TunnelMonitor.pdb"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\peter\OneDrive\Dokumenter\projects\TunnelMonitor\bin\Release\net7.0-windows\publish\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\peter\OneDrive\Dokumenter\projects\TunnelMonitor\bin\Release\net7.0-windows\publish\TunnelMonitor.runtimeconfig.json"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\peter\OneDrive\Dokumenter\projects\TunnelMonitor\tunnel.ico"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\peter\OneDrive\Dokumenter\projects\TunnelMonitor\settings.json"; DestDir: "{userappdata}\TunnelMonitor";
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\tunnel.ico"
+Name: "{userdesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\tunnel.ico"; 
 
 [Registry]
 Root: HKA; Subkey: "Software\Classes\{#MyAppAssocExt}\OpenWithProgids"; ValueType: string; ValueName: "{#MyAppAssocKey}"; ValueData: ""; Flags: uninsdeletevalue
